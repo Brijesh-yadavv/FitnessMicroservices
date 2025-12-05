@@ -4,7 +4,6 @@ package com.fitness.activityservice.controller;
 import com.fitness.activityservice.activity.ActivityService;
 import com.fitness.activityservice.DTO.ActivityRequest;
 import com.fitness.activityservice.DTO.ActivityResponse;
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -4,14 +4,11 @@ import com.fitness.activityservice.DTO.ActivityRequest;
 import com.fitness.activityservice.DTO.ActivityResponse;
 import com.fitness.activityservice.entity.Activity;
 import com.fitness.activityservice.repository.ActivityRepository;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
 public class ActivityService {
 
