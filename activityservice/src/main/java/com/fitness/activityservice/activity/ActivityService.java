@@ -1,0 +1,75 @@
+package com.fitness.activityservice.activity;
+
+import com.fitness.activityservice.DTO.ActivityRequest;
+import com.fitness.activityservice.DTO.ActivityResponse;
+import com.fitness.activityservice.entity.Activity;
+import com.fitness.activityservice.repository.ActivityRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Service
+public class ActivityService {
+
+    private final ActivityRepository activityRepository;
+
+    public ActivityService(ActivityRepository activityRepository){
+        this.activityRepository=activityRepository;
+    }
+    public  ActivityResponse trackActivity(ActivityRequest request) {
+        Activity activity = Activity.builder().userId(request.getUserId())
+                .type(request.getType())
+                .duration(request.getDuration())
+                .caloriesBurned(request.getCaloriesBurned())
+                .startTime(request.getStartTime())
+                .additionalMaterics(request.getAdditionalMaterics())
+                .build();
+
+        Activity savedActivity=activityRepository.save(activity);
+
+        ActivityResponse activityResponse=new ActivityResponse();
+
+        return mapToResponse(savedActivity);
+
+    }
+
+    private ActivityResponse mapToResponse(Activity activity) {
+        ActivityResponse response=new ActivityResponse();
+
+        response.setId(activity.getId());
+        response.setUserId(activity.getUserId());
+        response.setType(activity.getType());
+        response.setDuration(activity.getDuration());
+        response.setCaloriesBurned(activity.getCaloriesBurned());
+        response.setCreatedAt(activity.getCreatedAt());
+        response.setStartTime(activity.getStartTime());
+        response.setUpdatedAt(activity.getUpdatedAt());
+        response.setAdditionalMaterics(activity.getAdditionalMaterics());
+
+        return response;
+
+    }
+
+    public  List<ActivityResponse> getAllActivities() {
+        List<Activity> activityList=activityRepository.findAll();
+        List<ActivityResponse> responseList=new ArrayList<>();
+        for(Activity activity:activityList){
+            ActivityResponse activityResponse=new ActivityResponse();
+            activityResponse.setId(activity.getId());
+            activityResponse.setUserId(activity.getUserId());
+            activityResponse.setDuration(activity.getDuration());
+            activityResponse.setStartTime(activity.getStartTime());
+            activityResponse.setUpdatedAt(activity.getUpdatedAt());
+            activityResponse.setCreatedAt(activity.getCreatedAt());
+            activityResponse.setCaloriesBurned(activity.getCaloriesBurned());
+            activityResponse.setType(activity.getType());
+            activityResponse.setAdditionalMaterics(activity.getAdditionalMaterics());
+            responseList.add(activityResponse);
+        }
+        return responseList;
+    }
+}
