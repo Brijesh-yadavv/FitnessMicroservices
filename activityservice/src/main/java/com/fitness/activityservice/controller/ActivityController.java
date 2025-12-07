@@ -1,7 +1,7 @@
 package com.fitness.activityservice.controller;
 
 
-import com.fitness.activityservice.activity.ActivityService;
+import com.fitness.activityservice.services.ActivityService;
 import com.fitness.activityservice.DTO.ActivityRequest;
 import com.fitness.activityservice.DTO.ActivityResponse;
 import org.springframework.http.ResponseEntity;

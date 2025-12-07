@@ -5,13 +5,16 @@ import com.fitness.userservice.DTO.UserResponse;
 import com.fitness.userservice.entity.User;
 import com.fitness.userservice.repositary.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserServices {
     private final UserRepository repository;
 
@@ -84,5 +87,12 @@ public class UserServices {
         }
         return userResponses;
 
+    }
+
+    public Boolean  existsByUserId(String userId) {
+
+        log.info("Inside UserService existsByUserId mehtod for validating  of userId though UserService:- ",userId);
+
+        return repository.existsById(userId);
     }
 }

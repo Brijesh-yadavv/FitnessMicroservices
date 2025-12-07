@@ -1,4 +1,4 @@
-package com.fitness.activityservice.activity;
+package com.fitness.activityservice.services;
 
 import com.fitness.activityservice.DTO.ActivityRequest;
 import com.fitness.activityservice.DTO.ActivityResponse;
@@ -13,11 +13,22 @@ import java.util.List;
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final UserValidateService userValidateService;
 
-    public ActivityService(ActivityRepository activityRepository){
+
+    public ActivityService(ActivityRepository activityRepository, UserValidateService userValidateService){
         this.activityRepository=activityRepository;
+        this.userValidateService = userValidateService;
     }
     public  ActivityResponse trackActivity(ActivityRequest request) {
+
+        boolean isValidUSer=userValidateService.validateUser(request.getUserId());
+
+        if(!isValidUSer){
+            throw new RuntimeException("Invalid User: "+request.getUserId());
+
+        }
+
         Activity activity = Activity.builder().userId(request.getUserId())
                 .type(request.getType())
                 .duration(request.getDuration())
